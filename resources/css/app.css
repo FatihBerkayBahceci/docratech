@@ -1,0 +1,503 @@
+/*
+Developer: DocraTech Team | Fatih Berkay Bahceci
+Language: American English (US)
+License: MIT
+Project: DocraTech Medical Website Platform
+Version: 2.0 - Light Mode Only
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* DocraTech Brand Colors (Light Mode Only) */
+:root {
+  --color-primary: #5A1188;
+  --color-primary-accent: #9D38CF;
+  --color-dark-purple: #2A183D;
+  --color-soft-purple: #6D488D;
+  --color-white: #ffffff;
+  --color-gray-light: #E5E7EB;
+  
+  /* Light mode surface colors */
+  --color-background: #F8F8FC;
+  --color-surface: #FFFFFF;
+  --color-border: #E5E7EB;
+  --color-border-light: #F3F4F6;
+  
+  /* Text colors */
+  --color-text: #181124;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+  
+  /* Status colors */
+  --color-success: #059669;
+  --color-warning: #D97706;
+  --color-error: #DC2626;
+  --color-info: #2563EB;
+  
+  /* Interactive states */
+  --color-hover: #F9FAFB;
+  --color-focus: #F3F4F6;
+  --color-active: #E5E7EB;
+  
+  /* Typography */
+  --font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-size-base: 1rem;
+  --line-height-normal: 1.5;
+  
+  /* Shadows */
+  --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-glow: 0 0 20px rgba(157, 56, 207, 0.15);
+}
+
+@layer base {
+  /* Global Reset and Base Styles */
+  html {
+    font-family: var(--font-family);
+    background: var(--color-background);
+    color: var(--color-text);
+    scroll-behavior: smooth;
+    line-height: var(--line-height-normal);
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--color-background);
+    color: var(--color-text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  /* Improved focus styles for accessibility */
+  *:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  
+  /* Better selection styles */
+  ::selection {
+    background: rgba(157, 56, 207, 0.2);
+    color: var(--color-text);
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--color-border-light);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-primary-accent);
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+  }
+  
+  /* Typography improvements */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-text);
+    margin: 0;
+  }
+  
+  p {
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+  }
+  
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  
+  a:hover {
+    color: var(--color-primary-accent);
+  }
+  
+  /* Form elements improvements */
+  input, textarea, select {
+    font-family: inherit;
+  }
+  
+  /* Button reset */
+  button {
+    background: none;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* Loading States */
+  .loading-spinner {
+    @apply inline-block w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin;
+  }
+  
+  .loading-dots {
+    @apply inline-flex space-x-1;
+  }
+  
+  .loading-dots > div {
+    @apply w-2 h-2 bg-current rounded-full animate-bounce;
+  }
+  
+  .loading-dots > div:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  
+  .loading-dots > div:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  
+  /* Skeleton loaders */
+  .skeleton {
+    @apply bg-gray-200 animate-pulse rounded;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+  }
+  
+  @keyframes skeleton-loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  /* Enhanced form components */
+  .form-group {
+    @apply space-y-2;
+  }
+  
+  .form-label {
+    @apply block text-sm font-semibold text-docratech-text;
+  }
+  
+  .form-error {
+    @apply text-sm text-docratech-error font-medium;
+  }
+  
+  .form-help {
+    @apply text-sm text-docratech-textMuted;
+  }
+  
+  /* Status indicators */
+  .status-dot {
+    @apply inline-flex w-2 h-2 rounded-full;
+  }
+  
+  .status-online {
+    @apply bg-docratech-success;
+  }
+  
+  .status-offline {
+    @apply bg-gray-400;
+  }
+  
+  .status-warning {
+    @apply bg-docratech-warning;
+  }
+  
+  .status-error {
+    @apply bg-docratech-error;
+  }
+  
+  /* Enhanced table styles */
+  .table-container {
+    @apply w-full overflow-hidden bg-white rounded-2xl shadow-soft border border-docratech-borderLight;
+  }
+  
+  .table-header {
+    @apply bg-gray-50 border-b border-docratech-borderLight;
+  }
+  
+  .table-row {
+    @apply border-b border-docratech-borderLight last:border-b-0 hover:bg-docratech-hover transition-colors;
+  }
+  
+  .table-cell {
+    @apply px-6 py-4 text-sm;
+  }
+  
+  .table-cell-header {
+    @apply table-cell font-semibold text-docratech-text;
+  }
+  
+  /* Enhanced modal styles */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+  }
+  
+  .modal-content {
+    @apply bg-white rounded-2xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-hidden;
+  }
+  
+  .modal-header {
+    @apply px-6 py-4 border-b border-docratech-borderLight flex items-center justify-between;
+  }
+  
+  .modal-body {
+    @apply px-6 py-4 overflow-y-auto;
+  }
+  
+  .modal-footer {
+    @apply px-6 py-4 border-t border-docratech-borderLight flex items-center justify-end space-x-3;
+  }
+  
+  /* Toast notifications */
+  .toast-container {
+    @apply fixed top-6 right-6 z-50 space-y-3;
+  }
+  
+  .toast {
+    @apply bg-white rounded-xl shadow-large border border-docratech-borderLight p-4 flex items-center space-x-3 min-w-[300px] max-w-[400px];
+    transform: translateX(100%);
+    animation: toast-slide-in 0.3s ease-out forwards;
+  }
+  
+  .toast.toast-success {
+    @apply border-l-4 border-l-docratech-success;
+  }
+  
+  .toast.toast-warning {
+    @apply border-l-4 border-l-docratech-warning;
+  }
+  
+  .toast.toast-error {
+    @apply border-l-4 border-l-docratech-error;
+  }
+  
+  .toast.toast-info {
+    @apply border-l-4 border-l-docratech-info;
+  }
+  
+  @keyframes toast-slide-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  /* Progress indicators */
+  .progress-bar {
+    @apply w-full bg-gray-200 rounded-full overflow-hidden;
+  }
+  
+  .progress-fill {
+    @apply h-2 bg-gradient-to-r from-primary to-primaryAccent rounded-full transition-all duration-300 ease-out;
+  }
+  
+  /* Dropdown menus */
+  .dropdown {
+    @apply relative inline-block;
+  }
+  
+  .dropdown-content {
+    @apply absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-large border border-docratech-borderLight py-2 z-10;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.15s ease-out;
+  }
+  
+  .dropdown.open .dropdown-content {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .dropdown-item {
+    @apply block px-4 py-2 text-sm text-docratech-text hover:bg-docratech-hover transition-colors cursor-pointer;
+  }
+  
+  .dropdown-divider {
+    @apply border-t border-docratech-borderLight my-1;
+  }
+}
+
+@layer utilities {
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+  }
+  
+  .animate-slide-in-up {
+    animation: slideInUp 0.3s ease-out;
+  }
+  
+  .animate-bounce-in {
+    animation: bounceIn 0.6s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+  
+  .animate-shake {
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  /* Layout utilities */
+  .content-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .content-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .content-start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .content-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  /* Visual utilities */
+  .glassmorphism {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  .text-gradient-primary {
+    @apply text-gradient;
+  }
+  
+  .bg-pattern-dots {
+    background-image: radial-gradient(circle, rgba(157, 56, 207, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  .bg-pattern-grid {
+    background-image: 
+      linear-gradient(rgba(157, 56, 207, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(157, 56, 207, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 640px) {
+  .mobile-p-4 {
+    @apply p-4;
+  }
+  
+  .mobile-text-sm {
+    @apply text-sm;
+  }
+  
+  .mobile-hidden {
+    @apply hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  .tablet-hidden {
+    @apply hidden;
+  }
+  
+  .tablet-full {
+    @apply w-full;
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --color-border: #000000;
+    --color-text: #000000;
+    --color-background: #ffffff;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .print-hidden {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* High performance GPU acceleration */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+} 
